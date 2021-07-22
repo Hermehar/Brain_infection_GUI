@@ -1,3 +1,4 @@
+python.brain.infection.detector
 tkinter
 Pillow-7.1.1
 simpleimage
