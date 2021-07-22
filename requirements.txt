@@ -1,4 +1,4 @@
 tkinter
-PIL
+Pillow-7.1.1
 simpleimage
 pywhatkit
