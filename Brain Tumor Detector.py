@@ -1,4 +1,3 @@
-#-----------------------BRAIN INFECTION DETECTOR----------------------------------                    
 """
 -- This program helps the user to find out the brain infection from the brain MRI.
 -- This program takes the image from the user and identifies the infection in it.
