@@ -17,9 +17,10 @@ from PIL import Image, ImageTk
 import PIL
 from simpleimage import SimpleImage
 import pywhatkit
+import pyttsx3
 
 BRIGHT_THRESHOLD = 200                                      #bright threshold to find sufficiently brighter pixels
-
+speech = pyttsx3.init()
 root = Tk()                                                 #giving title and heading
 root.title("Brain Infection Detector")
 label = Label(root, text = "Brain Infection Detector", fg = "purple").grid(row = 0,column = 2)
@@ -68,7 +69,7 @@ def layout():                                           #entry fields
     mobile_entry = Label(root, text = "Enter Your Mobile Number").grid(row = 5, column = 1)
     MOBILE_ENTRY_FIELD.grid(row = 5, column = 2)
     
-    l1 = Label(root, text = "Please select a jpeg on png file of your Brain MRI.").grid(row = 7, column = 1)
+    l1 = Label(root, text = "Please select a jpeg or png file of your Brain MRI.").grid(row = 7, column = 1)
 
     open_filename_button = Button(root, text = "Select File", command = open_file, fg = "#33FFCA", bg = "black").grid(row = 7, column = 2)
 
@@ -100,9 +101,13 @@ def submit_button():                                    #defining submit button
             for pixel in output_filename:
                 pixel_avg = (pixel.red + pixel.green + pixel.blue) // 3
                 if pixel.red == pixel_avg * 4:
+                    speech.say(f"Infection Detected in the scan of {name}. The infection is marked with red color.")                    #report is converted from text to speech
+                    speech.runAndWait()    
                     pywhatkit.sendwhatmsg_instantly(f'{mobile}', f'This is the report of {name}, age: {age}. Traces of infection have been found in the sample.The red portion in the image indicates the infection in the brain.')
                     break
                 else:
+                    speech.say(f"Infection not Detected in the scan of {name}.")
+                    speech.runAndWait()
                     pywhatkit.sendwhatmsg_instantly(f'{mobile}', f'This is the report of {name}, age: {age}. No Traces of infection have been found in the sample.')
                     break
 
